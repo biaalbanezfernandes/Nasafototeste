@@ -54,3 +54,4 @@ Agora, acesse o site em seu navegador:
 - **Backend**: FastAPI, HTTPX, Python-dotenv.
 - **Frontend**: HTML5, Vanilla CSS (Glassmorphism), JavaScript Moderno.
 - **API**: NASA Planetary APOD.
+# 2 IA - A A 
