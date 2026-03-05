@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASA | Cosmic Birthday</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="cosmic-bg"></div>
+    <div class="stars-overlay"></div>
+
+    <main class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo-glow"></div>
+                <h1><span class="gradient-text">Cosmic</span> Birthday</h1>
+            </div>
+            <p class="subtitle">Witness the majestic universe as it appeared on the day you entered the cosmos.</p>
+        </header>
+
+        <section class="search-panel">
+            <form id="apod-form">
+                <div class="form-group">
+                    <div class="input-container">
+                        <label for="birthdate">Select Your Event Date</label>
+                        <input type="date" id="birthdate" name="birthdate" required min="1995-06-16">
+                    </div>
+                    <button type="submit" id="submit-btn" class="launch-btn">
+                        <span>Launch Journey</span>
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Loading State -->
+        <section id="loading-state" class="state-container hidden">
+            <div class="cosmic-loader"></div>
+            <p style="margin-top: 1.5rem; color: var(--accent-secondary);">Decrypting cosmic signals...</p>
+        </section>
+
+        <!-- Error State -->
+        <section id="error-state" class="state-container hidden">
+            <i class="fa-solid fa-satellite-dish fa-3x" style="color: var(--accent-primary); margin-bottom: 2rem;"></i>
+            <h2 id="error-title">Signal Lost</h2>
+            <p id="error-message" class="subtitle">Unable to retrieve astronomical data for this specific sequence.</p>
+        </section>
+
+        <!-- Result Section -->
+        <section id="result-section" class="result-card hidden">
+            <div class="media-reveal">
+                <div id="media-wrapper"></div>
+                <div class="meta-overlay">
+                    <span id="apod-date-badge" class="date-badge">YYYY-MM-DD</span>
+                    <h2 id="apod-title" class="data-title">Cosmic Title</h2>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="explanation-card">
+                    <h3>Astronomical Insight</h3>
+                    <p id="apod-description">Fascinating cosmic events were occurring...</p>
+                    <p id="apod-copyright" style="margin-top: 2rem; font-size: 0.8rem; opacity: 0.5;"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

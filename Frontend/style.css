@@ -1,0 +1,387 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    --bg-obsidian: #030308;
+    --accent-primary: #7d2ae8;
+    --accent-secondary: #00d2ff;
+    --text-main: #f8f9fa;
+    --text-dim: #94a3b8;
+    --glass-bg: rgba(15, 15, 30, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glow-shadow: 0 0 40px rgba(125, 42, 232, 0.2);
+    --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-obsidian);
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Custom Selection */
+::selection {
+    background: var(--accent-primary);
+    color: white;
+}
+
+/* Immersive Background */
+.cosmic-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, #110022 0%, #030308 100%);
+    z-index: -1;
+}
+
+.stars-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(1px 1px at 25% 35%, white 100%, transparent),
+        radial-gradient(1px 1px at 50% 50%, white 100%, transparent),
+        radial-gradient(1px 1px at 75% 65%, white 100%, transparent),
+        radial-gradient(1.5px 1.5px at 15% 85%, white 100%, transparent),
+        radial-gradient(1.5px 1.5px at 85% 15%, white 100%, transparent);
+    background-size: 400px 400px;
+    opacity: 0.3;
+    z-index: -1;
+    animation: pulseStars 10s infinite alternate;
+}
+
+@keyframes pulseStars {
+    from {
+        opacity: 0.2;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0.5;
+        transform: scale(1.05);
+    }
+}
+
+/* Layout */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Header Sections */
+header {
+    text-align: center;
+    position: relative;
+    animation: fadeInDown 1s ease-out;
+}
+
+.logo-container {
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    position: relative;
+}
+
+.logo-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background: var(--accent-primary);
+    filter: blur(50px);
+    opacity: 0.4;
+    z-index: -1;
+}
+
+h1 {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #fff 30%, var(--accent-primary) 70%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 20px rgba(125, 42, 232, 0.3));
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    color: var(--text-dim);
+    max-width: 600px;
+    margin: 0 auto;
+    font-weight: 300;
+}
+
+/* Interaction Panel */
+.search-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 32px;
+    padding: 3rem;
+    box-shadow: var(--glow-shadow);
+    transition: var(--transition-smooth);
+    animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.search-panel:focus-within {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 60px rgba(125, 42, 232, 0.3);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.input-container {
+    position: relative;
+}
+
+label {
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+    color: var(--accent-secondary);
+}
+
+input[type="date"] {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 1.25rem 1.5rem;
+    border-radius: 16px;
+    font-size: 1.2rem;
+    font-family: inherit;
+    outline: none;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+input[type="date"]:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+input[type="date"]:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--accent-primary);
+}
+
+.launch-btn {
+    background: white;
+    color: var(--bg-obsidian);
+    border: none;
+    padding: 1.25rem 2rem;
+    border-radius: 16px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.launch-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+}
+
+.launch-btn i {
+    transition: transform 0.5s ease;
+}
+
+.launch-btn:hover i {
+    transform: translate(5px, -5px) rotate(45deg);
+}
+
+/* Result Architecture */
+.result-card {
+    display: grid;
+    gap: 3rem;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.visible {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.media-reveal {
+    position: relative;
+    border-radius: 40px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    background: #000;
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#media-wrapper img,
+#media-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.meta-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2.5rem;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+}
+
+.date-badge {
+    display: inline-block;
+    padding: 0.5rem 1.25rem;
+    background: var(--accent-primary);
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.data-title {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    font-weight: 700;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.explanation-card {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 2.5rem;
+    border-radius: 32px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.explanation-card h3 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--accent-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.explanation-card p {
+    color: var(--text-dim);
+    font-size: 1.15rem;
+    line-height: 1.8;
+}
+
+/* Loading Animation */
+.cosmic-loader {
+    width: 60px;
+    height: 60px;
+    border: 3px solid rgba(125, 42, 232, 0.1);
+    border-top: 3px solid var(--accent-primary);
+    border-radius: 50%;
+    animation: spin 1s infinite cubic-bezier(0.5, 0, 0.5, 1);
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* States */
+.state-container {
+    text-align: center;
+    padding: 4rem;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 2rem 1rem;
+    }
+
+    .search-panel {
+        padding: 1.5rem;
+    }
+
+    .media-reveal {
+        aspect-ratio: 4/5;
+    }
+}
+
+/* Hover effects for buttons/inputs */
+* :is(input, button) {
+    cursor: pointer;
+}
