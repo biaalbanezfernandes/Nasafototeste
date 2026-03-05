@@ -4,6 +4,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 import httpx
 
+# SSL monkey-patch for deep-translator (which uses requests)
+import urllib3
+import requests
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+old_request = requests.Session.request
+requests.Session.request = lambda *args, **kwargs: old_request(*args, **{**kwargs, 'verify': False})
+
 # Load environment variables
 load_dotenv()
 
@@ -43,6 +50,18 @@ async def get_apod(date: str):
             response = await client.get(NASA_API_URL, params=params)
             response.raise_for_status()
             data = response.json()
+            
+            # Translate title and explanation to Portuguese (pt-Br)
+            try:
+                from deep_translator import GoogleTranslator
+                translator = GoogleTranslator(source='en', target='pt')
+                if "explanation" in data:
+                    data["explanation"] = translator.translate(data["explanation"])
+                if "title" in data:
+                    data["title"] = translator.translate(data["title"])
+            except Exception as e:
+                print(f"Translation error: {e}")
+                
             return data
         except httpx.HTTPStatusError as e:
             # Pass along the NASA API error if available
