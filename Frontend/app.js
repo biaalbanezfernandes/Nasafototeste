@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Set max date for input to today
+    // Set max date for input to yesterday (NASA API often fails for today)
     const dateInput = document.getElementById('birthdate');
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.max = today;
-    dateInput.value = today; // Default to today
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayStr = yesterday.toISOString().split('T')[0];
+    dateInput.max = yesterdayStr;
+    dateInput.value = yesterdayStr; // Default to yesterday
 
     const form = document.getElementById('apod-form');
     const submitBtn = document.getElementById('submit-btn');
@@ -22,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorMessageEl = document.getElementById('error-message');
 
     // Backend URL
-    const API_BASE_URL = 'http://localhost:8001/apod';
+    const API_BASE_URL = 'http://localhost:8000/apod';
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -37,21 +39,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Button animation
         const originalBtnHtml = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<span>Scanning Space...</span> <i class="fa-solid fa-spinner fa-spin"></i>';
+        submitBtn.innerHTML = '<span>Analisando Espaço...</span> <i class="fa-solid fa-spinner fa-spin"></i>';
 
         try {
             const response = await fetch(`${API_BASE_URL}?date=${selectedDate}`);
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.detail || 'Cosmic signal interrupted.');
+                let errorMsg = data.detail || 'Sinal cósmico interrompido.';
+                if (errorMsg === 'Internal Service Error' || errorMsg.includes('No data available')) {
+                    errorMsg = 'A imagem para esta data ainda não está disponível na API da NASA.';
+                }
+                throw new Error(errorMsg);
             }
 
             await renderAPOD(data);
 
         } catch (error) {
-            console.error('Sequence Error:', error);
-            showError(error.message);
+            console.error('Erro de Sequência:', error);
+            let displayMsg = error.message;
+            if (displayMsg === 'Failed to fetch') {
+                displayMsg = 'Falha de conexão: Verifique se o backend (servidor principal) está rodando.';
+            }
+            showError(displayMsg);
         } finally {
             loadingState.classList.add('hidden');
             submitBtn.disabled = false;
@@ -99,14 +109,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
 
                 img.onerror = () => {
-                    showError("Failed to render the cosmic capture.");
+                    showError("Falha ao renderizar a captura cósmica.");
                     resolve();
                 };
 
                 // Click to view HD
                 if (data.hdurl) {
                     img.style.cursor = 'zoom-in';
-                    img.title = 'View High-Resolution Capture';
+                    img.title = 'Ver Captura em Alta Resolução';
                     img.onclick = () => window.open(data.hdurl, '_blank');
                 }
 

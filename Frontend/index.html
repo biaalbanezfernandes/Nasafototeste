@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NASA | Cosmic Birthday</title>
+    <title>NASA | Aniversário Cósmico</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,20 +22,21 @@
         <header>
             <div class="logo-container">
                 <div class="logo-glow"></div>
-                <h1><span class="gradient-text">Cosmic</span> Birthday</h1>
+                <h1><span class="gradient-text">Aniversário</span> Cósmico</h1>
             </div>
-            <p class="subtitle">Witness the majestic universe as it appeared on the day you entered the cosmos.</p>
+            <p class="subtitle">Testemunhe o universo majestoso como ele apareceu no dia em que você entrou no cosmos.
+            </p>
         </header>
 
         <section class="search-panel">
             <form id="apod-form">
                 <div class="form-group">
                     <div class="input-container">
-                        <label for="birthdate">Select Your Event Date</label>
+                        <label for="birthdate">Selecione a Data do Evento</label>
                         <input type="date" id="birthdate" name="birthdate" required min="1995-06-16">
                     </div>
                     <button type="submit" id="submit-btn" class="launch-btn">
-                        <span>Launch Journey</span>
+                        <span>Iniciar Jornada</span>
                         <i class="fa-solid fa-paper-plane"></i>
                     </button>
                 </div>
@@ -45,14 +46,15 @@
         <!-- Loading State -->
         <section id="loading-state" class="state-container hidden">
             <div class="cosmic-loader"></div>
-            <p style="margin-top: 1.5rem; color: var(--accent-secondary);">Decrypting cosmic signals...</p>
+            <p style="margin-top: 1.5rem; color: var(--accent-secondary);">Descriptografando sinais cósmicos...</p>
         </section>
 
         <!-- Error State -->
         <section id="error-state" class="state-container hidden">
             <i class="fa-solid fa-satellite-dish fa-3x" style="color: var(--accent-primary); margin-bottom: 2rem;"></i>
-            <h2 id="error-title">Signal Lost</h2>
-            <p id="error-message" class="subtitle">Unable to retrieve astronomical data for this specific sequence.</p>
+            <h2 id="error-title">Sinal Perdido</h2>
+            <p id="error-message" class="subtitle">Não foi possível recuperar os dados astronômicos para esta sequência
+                específica.</p>
         </section>
 
         <!-- Result Section -->
@@ -61,14 +63,14 @@
                 <div id="media-wrapper"></div>
                 <div class="meta-overlay">
                     <span id="apod-date-badge" class="date-badge">YYYY-MM-DD</span>
-                    <h2 id="apod-title" class="data-title">Cosmic Title</h2>
+                    <h2 id="apod-title" class="data-title">Título Cósmico</h2>
                 </div>
             </div>
 
             <div class="content-grid">
                 <div class="explanation-card">
-                    <h3>Astronomical Insight</h3>
-                    <p id="apod-description">Fascinating cosmic events were occurring...</p>
+                    <h3>Visão Astronômica</h3>
+                    <p id="apod-description">Fascinantes eventos cósmicos estavam ocorrendo...</p>
                     <p id="apod-copyright" style="margin-top: 2rem; font-size: 0.8rem; opacity: 0.5;"></p>
                 </div>
             </div>
